@@ -1,0 +1,51 @@
+{
+  "name": "koishi-plugin-assets-remote",
+  "description": "A classic assets provider for Koishi",
+  "version": "2.1.0",
+  "main": "lib/index.js",
+  "typings": "lib/index.d.ts",
+  "files": [
+    "lib"
+  ],
+  "author": "Shigma <shigma10826@gmail.com>",
+  "license": "MIT",
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/koishijs/assets.git",
+    "directory": "packages/remote"
+  },
+  "bugs": {
+    "url": "https://github.com/koishijs/assets/issues"
+  },
+  "homepage": "https://assets.koishi.chat/plugins/remote.html",
+  "keywords": [
+    "bot",
+    "chatbot",
+    "koishi",
+    "plugin",
+    "assets",
+    "client",
+    "storage"
+  ],
+  "koishi": {
+    "category": "storage",
+    "description": {
+      "en": "Remote assets service",
+      "zh": "使用远端 Koishi 应用存储资源文件"
+    },
+    "service": {
+      "implements": [
+        "assets"
+      ]
+    }
+  },
+  "peerDependencies": {
+    "koishi": "^4.10.3"
+  },
+  "devDependencies": {
+    "koishi": "^4.10.3"
+  },
+  "dependencies": {
+    "@koishijs/assets": "^1.0.0"
+  }
+}
