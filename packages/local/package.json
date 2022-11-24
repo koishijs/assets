@@ -1,0 +1,53 @@
+{
+  "name": "koishi-plugin-assets-local",
+  "description": "A classic assets provider for Koishi",
+  "version": "2.1.0",
+  "main": "lib/index.js",
+  "typings": "lib/index.d.ts",
+  "files": [
+    "lib"
+  ],
+  "author": "Shigma <shigma10826@gmail.com>",
+  "license": "MIT",
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/koishijs/assets.git",
+    "directory": "packages/local"
+  },
+  "bugs": {
+    "url": "https://github.com/koishijs/assets/issues"
+  },
+  "homepage": "https://assets.koishi.chat/plugins/local.html",
+  "keywords": [
+    "bot",
+    "chatbot",
+    "koishi",
+    "plugin",
+    "assets",
+    "server",
+    "local",
+    "storage"
+  ],
+  "koishi": {
+    "category": "storage",
+    "description": {
+      "en": "Local assets service",
+      "zh": "使用本地目录的存放资源文件"
+    },
+    "service": {
+      "implements": [
+        "assets"
+      ]
+    }
+  },
+  "peerDependencies": {
+    "koishi": "^4.10.3"
+  },
+  "devDependencies": {
+    "koishi": "^4.10.3"
+  },
+  "dependencies": {
+    "@koishijs/assets": "^1.0.0",
+    "file-type": "^16.5.4"
+  }
+}
