@@ -1,0 +1,38 @@
+{
+  "name": "@koishijs/assets",
+  "description": "Assets service for Koishi",
+  "version": "1.0.0",
+  "main": "lib/index.js",
+  "typings": "lib/index.d.ts",
+  "files": [
+    "lib",
+    "dist"
+  ],
+  "author": "Shigma <shigma10826@gmail.com>",
+  "license": "MIT",
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/koishijs/assets.git",
+    "directory": "packages/core"
+  },
+  "bugs": {
+    "url": "https://github.com/koishijs/koishi-plugin-assets/issues"
+  },
+  "homepage": "https://assets.koishi.chat",
+  "keywords": [
+    "chatbot",
+    "koishi",
+    "service",
+    "assets",
+    "storage"
+  ],
+  "peerDependencies": {
+    "koishi": "^4.10.1"
+  },
+  "devDependencies": {
+    "koishi": "^4.10.2"
+  },
+  "dependencies": {
+    "file-type": "^16.5.4"
+  }
+}
