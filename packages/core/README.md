@@ -4,11 +4,11 @@
 
 ## 插件
 
-- [koishi-plugin-assets-git](https://assets.koishi.chat/plugins/git.md)
-- [koishi-plugin-assets-local](https://assets.koishi.chat/plugins/local.md)
-- [koishi-plugin-assets-remote](https://assets.koishi.chat/plugins/remote.md)
-- [koishi-plugin-assets-s3](https://assets.koishi.chat/plugins/s3.md)
-- [koishi-plugin-assets-smms](https://assets.koishi.chat/plugins/smms.md)
+- [koishi-plugin-assets-git](https://assets.koishi.chat/plugins/git.html)
+- [koishi-plugin-assets-local](https://assets.koishi.chat/plugins/local.html)
+- [koishi-plugin-assets-remote](https://assets.koishi.chat/plugins/remote.html)
+- [koishi-plugin-assets-s3](https://assets.koishi.chat/plugins/s3.html)
+- [koishi-plugin-assets-smms](https://assets.koishi.chat/plugins/smms.html)
 
 ## 许可证
 

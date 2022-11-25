@@ -51,6 +51,6 @@
   },
   "dependencies": {
     "@aws-sdk/client-s3": "^3.137.0",
-    "@koishijs/assets": "^1.0.0"
+    "@koishijs/assets": "^1.0.1"
   }
 }

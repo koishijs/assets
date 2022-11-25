@@ -3,6 +3,12 @@ import { createHash } from 'crypto'
 import { basename } from 'path'
 import FileType from 'file-type'
 
+declare module 'koishi' {
+  interface Context {
+    assets: Assets
+  }
+}
+
 Context.service('assets')
 
 abstract class Assets<C extends Assets.Config = Assets.Config> extends Service {

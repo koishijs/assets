@@ -46,7 +46,7 @@
     "koishi": "^4.10.3"
   },
   "dependencies": {
-    "@koishijs/assets": "^1.0.0",
+    "@koishijs/assets": "^1.0.1",
     "form-data": "^4.0.0"
   }
 }
