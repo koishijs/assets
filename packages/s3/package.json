@@ -1,14 +1,15 @@
 {
   "name": "koishi-plugin-assets-s3",
   "description": "Assets provider based on s3 for Koishi",
-  "version": "1.1.0",
+  "version": "1.1.2",
   "main": "lib/index.js",
   "typings": "lib/index.d.ts",
   "files": [
     "lib"
   ],
   "author": "Nanahira <nanahira@momobako.com>",
-  "maintainers": [
+  "contributors": [
+    "Nanahira <nanahira@momobako.com>",
     "Shigma <shigma10826@gmail.com>"
   ],
   "license": "MIT",
@@ -47,10 +48,10 @@
     "koishi": "^4.10.3"
   },
   "devDependencies": {
-    "koishi": "^4.10.3"
+    "koishi": "^4.11.0"
   },
   "dependencies": {
-    "@aws-sdk/client-s3": "^3.137.0",
+    "@aws-sdk/client-s3": "^3.245.0",
     "@koishijs/assets": "^1.0.1"
   }
 }

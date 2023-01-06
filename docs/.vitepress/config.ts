@@ -3,7 +3,7 @@ import { defineConfig } from '@koishijs/vitepress'
 export default defineConfig({
   lang: 'zh-CN',
   title: '@koishijs/assets',
-  description: '在 Koishi 中使用资源存储服务',
+  description: 'Koishi 资源存储服务',
 
   head: [
     ['link', { rel: 'icon', href: 'https://koishi.chat/logo.png' }],

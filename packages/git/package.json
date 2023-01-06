@@ -48,10 +48,10 @@
     "koishi": "^4.10.3"
   },
   "devDependencies": {
-    "koishi": "^4.10.3"
+    "koishi": "^4.11.0"
   },
   "dependencies": {
     "@koishijs/assets": "^1.0.1",
-    "simple-git": "^3.11.0"
+    "simple-git": "^3.15.1"
   }
 }
