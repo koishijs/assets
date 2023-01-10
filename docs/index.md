@@ -16,6 +16,7 @@
 - [koishi-plugin-assets-remote](./plugins/remote.md)
 - [koishi-plugin-assets-s3](./plugins/s3.md)
 - [koishi-plugin-assets-smms](./plugins/smms.md)
+- [koishi-plugin-assets-chevereto](./plugins/chevereto.md)
 
 以下是使用此服务的插件：
 

@@ -26,6 +26,7 @@ export default defineConfig({
         { text: 'Remote', link: './plugins/remote' },
         { text: 'S3', link: './plugins/s3' },
         { text: 'SM.MS', link: './plugins/smms' },
+        { text: 'Chevereto', link: './plugins/chevereto' },
       ],
     }, {
       text: '更多',
