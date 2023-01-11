@@ -17,6 +17,7 @@ class LocalAssets extends Assets<LocalAssets.Config> {
   private path: string
   private root: string
   private selfUrl: string
+  private noServer = false
 
   constructor(ctx: Context, config: LocalAssets.Config) {
     super(ctx, config)
@@ -30,9 +31,10 @@ class LocalAssets extends Assets<LocalAssets.Config> {
       logger.warn('missing configuration "selfUrl", fallback to "file:" scheme')
       this.path = this.root.replace(/^\//, '')
       this.selfUrl = 'file:///'
+      this.noServer = true
     }
 
-    if (config.selfUrl) this.initServer()
+    if (!this.noServer) this.initServer()
     this._Task = this.initFolder()
   }
 
