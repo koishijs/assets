@@ -1,0 +1,50 @@
+{
+  "name": "koishi-plugin-assets-chevereto",
+  "description": "A chevereto assets provider for Koishi",
+  "version": "1.0.0",
+  "main": "lib/index.js",
+  "typings": "lib/index.d.ts",
+  "files": [
+    "lib",
+    "dist"
+  ],
+  "author": "LittleC <i@ltlec.com>",
+  "license": "MIT",
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/koishijs/assets.git",
+    "directory": "packages/chevereto"
+  },
+  "bugs": {
+    "url": "https://github.com/koishijs/assets/issues"
+  },
+  "homepage": "https://assets.koishi.chat/plugins/chevereto.html",
+  "scripts": {},
+  "keywords": [
+    "chatbot",
+    "koishi",
+    "plugin",
+    "assets",
+    "storage",
+    "chevereto"
+  ],
+  "koishi": {
+    "category": "storage",
+    "description": {
+      "en": "Chevereto assets provider",
+      "zh": "基于 Chevereto 的资源转存服务"
+    },
+    "service": {
+      "implements": [
+        "assets"
+      ]
+    }
+  },
+  "peerDependencies": {
+    "koishi": "^4.11.1"
+  },
+  "dependencies": {
+    "@koishijs/assets": "^1.0.1",
+    "form-data": "^4.0.0"
+  }
+}
