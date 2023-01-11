@@ -1,8 +1,16 @@
-import { Context, Quester, Schema } from 'koishi'
+import { $, Context, Quester, Schema } from 'koishi'
 import Assets from '@koishijs/assets'
 import FormData from 'form-data'
 
+declare module 'koishi' {
+  interface Tables {
+    assets: CheveretoAssets.Asset
+  }
+}
+
 class CheveretoAssets extends Assets<CheveretoAssets.Config> {
+  static using = ['database'] as const
+
   types = ['image']
   http: Quester
 
@@ -14,16 +22,32 @@ class CheveretoAssets extends Assets<CheveretoAssets.Config> {
         'X-API-Key': config.token
       }
     })
+    ctx.model.extend('assets', {
+      id: 'integer',
+      hash: 'string',
+      name: 'string',
+      size: 'integer',
+      url: 'string'
+    }, {
+      autoInc: true
+    })
   }
 
   async upload(url: string, file: string) {
-    const { buffer, filename } = await this.analyze(url, file)
+    const { buffer, filename, hash } = await this.analyze(url, file)
+    const [dbFile] = await this.ctx.database.get('assets', { hash })
+    if (dbFile) return dbFile.url
     const payload = new FormData()
     payload.append('source', buffer, filename)
     payload.append('key', this.config.token)
     payload.append('title', file)
     try {
       const data = await this.http.post('/api/1/upload', payload, { headers: payload.getHeaders() })
+      await this.ctx.database.create('assets', {
+        hash: hash,
+        name: filename,
+        size: data.image.size
+      })
       return data.image.url
     } catch (e) {
       const error = new Error(e.response?.data?.error?.message || e.response?.message)
@@ -32,11 +56,23 @@ class CheveretoAssets extends Assets<CheveretoAssets.Config> {
   }
 
   async stats() {
-    return {}
+    const selection = this.ctx.database.select('assets')
+    const [assetCount, assetSize] = await Promise.all([
+      selection.execute(row => $.count(row.id)),
+      selection.execute(row => $.sum(row.size)),
+    ])
+    return { assetCount, assetSize }
   }
 }
 
 namespace CheveretoAssets {
+  export interface Asset {
+    id: number
+    hash: string
+    name: string
+    size: number
+    url: string
+  }
   export interface Config extends Assets.Config {
     token: string
     endpoint: string
