@@ -4,6 +4,7 @@
 
 ## 插件
 
+- [koishi-plugin-assets-chevereto](https://assets.koishi.chat/plugins/chevereto.html)
 - [koishi-plugin-assets-git](https://assets.koishi.chat/plugins/git.html)
 - [koishi-plugin-assets-local](https://assets.koishi.chat/plugins/local.html)
 - [koishi-plugin-assets-remote](https://assets.koishi.chat/plugins/remote.html)

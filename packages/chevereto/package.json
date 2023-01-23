@@ -47,6 +47,9 @@
   "peerDependencies": {
     "koishi": "^4.11.1"
   },
+  "devDependencies": {
+    "koishi": "^4.11.2"
+  },
   "dependencies": {
     "@koishijs/assets": "^1.0.1",
     "form-data": "^4.0.0"
