@@ -35,45 +35,24 @@ class S3Assets extends Assets<S3Assets.Config> {
     const { buffer, filename } = await this.analyze(url, file)
     const s3Key = `${this.config.pathPrefix}${filename}`
     const finalUrl = `${this.publicUrl}${filename}`
-    try {
-      const checkExisting = await this.listObjects(s3Key)
-      if (checkExisting.Contents?.some((obj) => obj.Key === s3Key)) return finalUrl
+    const checkExisting = await this.listObjects(s3Key)
+    if (checkExisting.Contents?.some((obj) => obj.Key === s3Key)) return finalUrl
 
-      await this.s3.send(
-        new PutObjectCommand({
-          Bucket: this.config.bucket,
-          Key: s3Key,
-          Body: buffer,
-        }),
-      )
-      return finalUrl
-    } catch (e) {
-      this.ctx
-        .logger('assets-s3')
-        .error(`Failed to upload file ${filename} to ${s3Key}: ${e.toString()}`)
-      return Object.assign(new Error(e))
-    }
+    await this.s3.send(
+      new PutObjectCommand({
+        Bucket: this.config.bucket,
+        Key: s3Key,
+        Body: buffer,
+      }),
+    )
+    return finalUrl
   }
 
-  async stats(): Promise<Assets.Stats> {
-    try {
-      const data = await this.listObjects(this.config.pathPrefix)
-      return {
-        assetCount: data.Contents.length,
-        assetSize: data.Contents.reduce((prev, curr) => prev + curr.Size, 0),
-      }
-    } catch (e) {
-      this.ctx
-        .logger('assets-s3')
-        .error(
-          `Failed to fetch object list of ${this.config.bucket}/${
-            this.config.pathPrefix
-          }: ${e.toString()}`,
-        )
-      return {
-        assetSize: 0,
-        assetCount: 0,
-      }
+  async stats() {
+    const data = await this.listObjects(this.config.pathPrefix)
+    return {
+      assetCount: data.Contents.length,
+      assetSize: data.Contents.reduce((prev, curr) => prev + curr.Size, 0),
     }
   }
 }
