@@ -1,4 +1,4 @@
-import { $, Context, Quester, Schema } from 'koishi'
+import { $, Context, Logger, Quester, Schema } from 'koishi'
 import Assets from '@koishijs/assets'
 import FormData from 'form-data'
 
@@ -13,6 +13,7 @@ class CheveretoAssets extends Assets<CheveretoAssets.Config> {
 
   types = ['image']
   http: Quester
+  logger: Logger
 
   constructor(ctx: Context, config: CheveretoAssets.Config) {
     super(ctx, config)
@@ -22,6 +23,7 @@ class CheveretoAssets extends Assets<CheveretoAssets.Config> {
         'X-API-Key': config.token
       }
     })
+    this.logger = ctx.logger('chevereto')
     ctx.model.extend('assets', {
       id: 'integer',
       hash: 'string',
@@ -41,18 +43,13 @@ class CheveretoAssets extends Assets<CheveretoAssets.Config> {
     payload.append('source', buffer, filename)
     payload.append('key', this.config.token)
     payload.append('title', file)
-    try {
-      const data = await this.http.post('/api/1/upload', payload, { headers: payload.getHeaders() })
-      await this.ctx.database.create('assets', {
-        hash: hash,
-        name: filename,
-        size: data.image.size
-      })
-      return data.image.url
-    } catch (e) {
-      const error = new Error(e.response?.data?.error?.message || e.response?.message)
-      return Object.assign(error, e.response?.data)
-    }
+    const data = await this.http.post('/api/1/upload', payload, { headers: payload.getHeaders() })
+    await this.ctx.database.create('assets', {
+      hash: hash,
+      name: filename,
+      size: data.image.size
+    })
+    return data.image.url
   }
 
   async stats() {

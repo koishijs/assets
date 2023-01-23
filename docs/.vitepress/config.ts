@@ -21,12 +21,12 @@ export default defineConfig({
     }, {
       text: '插件',
       items: [
+        { text: 'Chevereto', link: './plugins/chevereto' },
         { text: 'Git', link: './plugins/git' },
         { text: 'Local', link: './plugins/local' },
         { text: 'Remote', link: './plugins/remote' },
         { text: 'S3', link: './plugins/s3' },
         { text: 'SM.MS', link: './plugins/smms' },
-        { text: 'Chevereto', link: './plugins/chevereto' },
       ],
     }, {
       text: '更多',

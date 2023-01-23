@@ -11,12 +11,12 @@
 
 以下是提供此服务的插件：
 
+- [koishi-plugin-assets-chevereto](./plugins/chevereto.md)
 - [koishi-plugin-assets-git](./plugins/git.md)
 - [koishi-plugin-assets-local](./plugins/local.md)
 - [koishi-plugin-assets-remote](./plugins/remote.md)
 - [koishi-plugin-assets-s3](./plugins/s3.md)
 - [koishi-plugin-assets-smms](./plugins/smms.md)
-- [koishi-plugin-assets-chevereto](./plugins/chevereto.md)
 
 以下是使用此服务的插件：
 
