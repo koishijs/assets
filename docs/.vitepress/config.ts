@@ -21,6 +21,7 @@ export default defineConfig({
     }, {
       text: '插件',
       items: [
+        { text: 'Chevereto', link: './plugins/chevereto' },
         { text: 'Git', link: './plugins/git' },
         { text: 'Local', link: './plugins/local' },
         { text: 'Remote', link: './plugins/remote' },
