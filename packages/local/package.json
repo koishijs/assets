@@ -1,7 +1,7 @@
 {
   "name": "koishi-plugin-assets-local",
   "description": "A classic assets provider for Koishi",
-  "version": "3.0.1",
+  "version": "3.0.3",
   "main": "lib/index.js",
   "typings": "lib/index.d.ts",
   "files": [
@@ -44,10 +44,10 @@
     "koishi": "^4.10.3"
   },
   "devDependencies": {
-    "koishi": "^4.11.2"
+    "koishi": "^4.12.1"
   },
   "dependencies": {
-    "@koishijs/assets": "^1.0.1",
+    "@koishijs/assets": "^1.0.2",
     "file-type": "^16.5.4"
   }
 }

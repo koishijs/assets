@@ -1,7 +1,7 @@
 {
   "name": "@koishijs/assets",
   "description": "Assets service for Koishi",
-  "version": "1.0.1",
+  "version": "1.0.2",
   "main": "lib/index.js",
   "typings": "lib/index.d.ts",
   "files": [
@@ -30,7 +30,7 @@
     "koishi": "^4.10.1"
   },
   "devDependencies": {
-    "koishi": "^4.11.2"
+    "koishi": "^4.12.1"
   },
   "dependencies": {
     "file-type": "^16.5.4"

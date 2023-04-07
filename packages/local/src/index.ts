@@ -28,7 +28,7 @@ class LocalAssets extends Assets<LocalAssets.Config> {
     if (config.selfUrl) {
       this.selfUrl = trimSlash(config.selfUrl)
     } else if (!(this.selfUrl = ctx.root.config.selfUrl)) {
-      logger.warn('missing configuration "selfUrl", fallback to "file:" scheme')
+      logger.info('missing config "selfUrl", fallback to "file:" scheme')
       this.path = this.root.replace(/^\//, '')
       this.selfUrl = 'file:///'
       this.noServer = true

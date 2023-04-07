@@ -12,6 +12,7 @@ declare module 'koishi' {
 Context.service('assets')
 
 abstract class Assets<C extends Assets.Config = Assets.Config> extends Service {
+  static filter = false
   static types = ['image', 'audio', 'video']
 
   protected types: readonly string[] = Assets.types
