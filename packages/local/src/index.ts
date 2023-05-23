@@ -62,8 +62,7 @@ class LocalAssets extends Assets<LocalAssets.Config> {
         if (hash !== sign) return ctx.status = 403
       }
 
-      await this.upload(url, file)
-      return ctx.status = 200
+      return await this.upload(url, file)
     })
   }
 
