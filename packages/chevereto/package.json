@@ -48,7 +48,7 @@
     "koishi": "^4.11.1"
   },
   "devDependencies": {
-    "koishi": "^4.12.1"
+    "koishi": "^4.13.0"
   },
   "dependencies": {
     "@koishijs/assets": "^1.0.2",

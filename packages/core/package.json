@@ -30,7 +30,7 @@
     "koishi": "^4.10.1"
   },
   "devDependencies": {
-    "koishi": "^4.12.1"
+    "koishi": "^4.13.0"
   },
   "dependencies": {
     "file-type": "^16.5.4"
