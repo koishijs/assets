@@ -216,26 +216,30 @@ namespace GitAssets {
     token: string
   }
 
-  const GitHubConfig = Schema.object({
+  const GitHubConfig: Schema<GitHubConfig> = Schema.object({
     user: Schema.string().required(),
     repo: Schema.string().required(),
     token: Schema.string().role('secret').required(),
   })
 
+  export interface GitConfig extends Partial<SimpleGitOptions> {}
+
+  export const GitConfig: Schema<GitConfig> = Schema.object({
+    baseDir: Schema.string().required(),
+  })
+
   export interface Config extends Assets.Config {
-    git: Partial<SimpleGitOptions>
+    git: GitConfig
     github: GitHubConfig
-    tempDir?: string
-    flushInterval?: number
-    maxBranchSize?: number
+    tempDir: string
+    flushInterval: number
+    maxBranchSize: number
   }
 
   export const Config: Schema<Config> = Schema.intersect([
     Schema.object({
       github: GitHubConfig,
-      git: Schema.object({
-        baseDir: Schema.string().required(),
-      }),
+      git: GitConfig,
       tempDir: Schema.string().default(resolve(__dirname, '../.temp')),
       flushInterval: Schema.natural().role('ms').default(Time.second * 3),
       maxBranchSize: Schema.natural().role('byte').default(50 * 1024 * 1024),
