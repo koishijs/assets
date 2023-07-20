@@ -27,10 +27,10 @@
     "storage"
   ],
   "peerDependencies": {
-    "koishi": "^4.10.1"
+    "koishi": "^4.13.8"
   },
   "devDependencies": {
-    "koishi": "^4.13.0"
+    "koishi": "^4.13.8"
   },
   "dependencies": {
     "file-type": "^16.5.4"

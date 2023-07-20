@@ -40,10 +40,10 @@
     }
   },
   "peerDependencies": {
-    "koishi": "^4.8.3"
+    "koishi": "^4.13.8"
   },
   "devDependencies": {
-    "koishi": "^4.13.0"
+    "koishi": "^4.13.8"
   },
   "dependencies": {
     "@koishijs/assets": "^1.0.2",
