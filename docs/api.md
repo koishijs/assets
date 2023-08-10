@@ -11,7 +11,7 @@
 
 将消息文本中的资源全部转存，并将链接替换为永久链接。
 
-### ctx.assets.stats() <badge text="抽象" type="warning"/>
+### ctx.assets.stats() <badge type="warning">抽象</badge>
 
 - 返回值: `Promise<Stats>` 服务状态信息
 
@@ -41,7 +41,7 @@ export interface FileInfo {
 }
 ```
 
-### assets.upload(url, file) <Badge text="抽象" type="warning"/>
+### assets.upload(url, file) <badge type="warning">抽象</badge>
 
 - **url:** `string` 资源 URL
 - **file:** `string` 资源文件名
