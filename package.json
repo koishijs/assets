@@ -24,7 +24,7 @@
   },
   "devDependencies": {
     "@koishijs/eslint-config": "^1.0.4",
-    "@koishijs/vitepress": "^2.2.1",
+    "@koishijs/vitepress": "^2.3.0",
     "@types/chai": "^4.3.5",
     "@types/mocha": "^9.1.1",
     "@types/node": "^20.4.2",
@@ -44,11 +44,11 @@
     "yakumo-esbuild-yaml": "^0.3.1",
     "yakumo-mocha": "^0.3.1",
     "yakumo-publish": "^0.3.4",
-    "yakumo-publish-sync": "^0.3.2",
+    "yakumo-publish-sync": "^0.3.3",
     "yakumo-tsc": "^0.3.12",
     "yakumo-upgrade": "^0.3.3",
     "yakumo-version": "^0.3.4",
     "yml-register": "^1.1.0",
-    "vitepress": "1.0.0-alpha.73"
+    "vitepress": "1.0.0-beta.7"
   }
 }

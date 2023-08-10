@@ -1,7 +1,7 @@
 import { Context, Logger, sanitize, Schema, trimSlash } from 'koishi'
 import { createReadStream, Stats } from 'fs'
-import { copyFile, mkdir, readdir, rm, stat, writeFile } from 'fs/promises'
-import { basename, join, resolve } from 'path'
+import { cp, mkdir, readdir, rm, stat, writeFile } from 'fs/promises'
+import { basename, resolve } from 'path'
 import { createHmac } from 'crypto'
 import { stream as fileTypeStream } from 'file-type'
 import Assets from '@koishijs/assets'
@@ -38,28 +38,13 @@ class LocalAssets extends Assets<LocalAssets.Config> {
     if (!this.noServer) this.initServer()
   }
 
-  // cp() can only be used since node 16
-  async cp(src: string, dest: string) {
-    const dirents = await readdir(src, { withFileTypes: true })
-    for (const dirent of dirents) {
-      const srcFile = join(src, dirent.name)
-      const destFile = join(dest, dirent.name)
-      if (dirent.isFile()) {
-        await copyFile(srcFile, destFile)
-      } else if (dirent.isDirectory()) {
-        await mkdir(destFile)
-        await this.cp(srcFile, destFile)
-      }
-    }
-  }
-
   async _start() {
     const legacy = resolve(this.ctx.baseDir, 'public')
     await mkdir(this.root, { recursive: true })
     const stats: Stats = await stat(legacy).catch(() => null)
     if (stats?.isDirectory()) {
       logger.info('migrating to data directory')
-      await this.cp(legacy, this.root)
+      await cp(legacy, this.root)
       await rm(legacy, { recursive: true, force: true })
     }
     const filenames = await readdir(this.root)
