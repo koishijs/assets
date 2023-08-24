@@ -1,0 +1,33 @@
+{
+  "description": "Koishi 资源存储服务",
+  "themeConfig": {
+    "editLink": {
+      "text": "在 GitHub 编辑此页面",
+      "pattern": "https://github.com/koishijs/assets/edit/main/docs/:path"
+    },
+    "sidebar": {
+      "/": [{
+        "text": "指南",
+        "items": [
+          { "text": "介绍", "link": "/" },
+          { "text": "API", "link": "/api" }
+        ]
+      }, {
+        "text": "插件",
+        "items": [
+          { "text": "Chevereto", "link": "/plugins/chevereto" },
+          { "text": "Git", "link": "/plugins/git" },
+          { "text": "Local", "link": "/plugins/local" },
+          { "text": "Remote", "link": "/plugins/remote" },
+          { "text": "S3", "link": "/plugins/s3" },
+          { "text": "SM.MS", "link": "/plugins/smms" }
+        ]
+      }, {
+        "text": "更多",
+        "items": [
+          { "text": "Koishi 官网", "link": "https://koishi.chat" }
+        ]
+      }]
+    }
+  }
+}
