@@ -10,9 +10,9 @@ export default defineConfig({
   },
 
   themeConfig: {
-    indexName: 'cache',
+    indexName: 'koishi-assets',
     socialLinks: {
-      github: 'https://github.com/koishijs/cache',
+      github: 'https://github.com/koishijs/assets',
     },
   },
 })
