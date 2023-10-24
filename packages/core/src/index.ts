@@ -1,4 +1,4 @@
-import { Context, Schema, segment, Service } from 'koishi'
+import { Context, h, Schema, Service } from 'koishi'
 import { createHash } from 'crypto'
 import { basename } from 'path'
 import FileType from 'file-type'
@@ -8,8 +8,6 @@ declare module 'koishi' {
     assets: Assets
   }
 }
-
-Context.service('assets')
 
 abstract class Assets<C extends Assets.Config = Assets.Config> extends Service {
   static filter = false
@@ -25,12 +23,12 @@ abstract class Assets<C extends Assets.Config = Assets.Config> extends Service {
   }
 
   public async transform(content: string) {
-    return await segment.transformAsync(content, Object.fromEntries(this.types.map((type) => {
+    return await h.transformAsync(content, Object.fromEntries(this.types.map((type) => {
       return [type, async (data) => {
         if (this.config.whitelist.some(prefix => data.url.startsWith(prefix))) {
-          return segment(type, data)
+          return h(type, data)
         } else {
-          return segment(type, { url: await this.upload(data.url, data.file) })
+          return h(type, { url: await this.upload(data.url, data.file) })
         }
       }]
     })))

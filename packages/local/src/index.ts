@@ -9,6 +9,8 @@ import Assets from '@koishijs/assets'
 const logger = new Logger('assets')
 
 class LocalAssets extends Assets<LocalAssets.Config> {
+  static inject = ['router']
+
   private _task: Promise<void>
   private _stats: Assets.Stats = {
     assetCount: 0,
