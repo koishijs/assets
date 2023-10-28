@@ -1,12 +1,12 @@
 {
   "name": "@koishijs/assets",
   "description": "Assets service for Koishi",
-  "version": "1.0.2",
+  "version": "1.0.3",
   "main": "lib/index.js",
   "typings": "lib/index.d.ts",
   "files": [
     "lib",
-    "dist"
+    "src"
   ],
   "author": "Shigma <shigma10826@gmail.com>",
   "license": "MIT",
@@ -27,10 +27,10 @@
     "storage"
   ],
   "peerDependencies": {
-    "koishi": "^4.15.1"
+    "koishi": "^4.15.3"
   },
   "devDependencies": {
-    "koishi": "^4.15.1"
+    "koishi": "^4.15.3"
   },
   "dependencies": {
     "file-type": "^16.5.4"
