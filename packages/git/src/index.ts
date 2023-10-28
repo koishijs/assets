@@ -1,4 +1,4 @@
-import { $, Context, Logger, Schema, sleep, Time } from 'koishi'
+import { $, Context, Schema, sleep, Time } from 'koishi'
 import Git, { ResetMode, SimpleGit, SimpleGitOptions } from 'simple-git'
 import Assets from '@koishijs/assets'
 import { promises as fsp } from 'fs'
@@ -16,10 +16,8 @@ function toBranchName(id: number) {
   return id.toString(36).padStart(8)
 }
 
-const logger = new Logger('git')
-
 class GitAssets extends Assets<GitAssets.Config> {
-  static using = ['database'] as const
+  static inject = ['database'] as const
 
   git: SimpleGit
   taskQueue: Task[] = []
@@ -47,7 +45,7 @@ class GitAssets extends Assets<GitAssets.Config> {
       try {
         await this.mainLoop()
       } catch (e) {
-        logger.warn(`Loop failed: ${e.toString()}`)
+        this.logger.warn(`Loop failed: ${e.toString()}`)
       }
     }
   }
@@ -62,7 +60,7 @@ class GitAssets extends Assets<GitAssets.Config> {
       await access(join(git.baseDir, '.git'))
       this.git = Git(this.config.git)
     } catch (e) {
-      logger.debug(`initializing repo at ${git.baseDir} ...`)
+      this.logger.debug(`initializing repo at ${git.baseDir} ...`)
       await mkdir(git.baseDir, { recursive: true })
       this.git = Git(this.config.git)
       await this.git
@@ -70,7 +68,7 @@ class GitAssets extends Assets<GitAssets.Config> {
         .addRemote('origin', `https://${token}@github.com/${user}/${repo}.git`)
         .addConfig('core.autocrlf', 'false', false)
       await this.checkout(false, true)
-      logger.debug('repository is initialized successfully')
+      this.logger.debug('repository is initialized successfully')
     }
   }
 
@@ -88,10 +86,10 @@ class GitAssets extends Assets<GitAssets.Config> {
       .select('assets', { branch: file.branch })
       .execute(row => $.sum(row.size))
     if (size >= this.config.maxBranchSize) {
-      logger.debug(`will switch to branch ${toBranchName(branch)}`)
+      this.logger.debug(`will switch to branch ${toBranchName(branch)}`)
       return { branch: branch + offset, size: 0 }
     } else {
-      logger.debug(`will remain on branch ${toBranchName(branch)}`)
+      this.logger.debug(`will remain on branch ${toBranchName(branch)}`)
       return { branch, size }
     }
   }
@@ -100,12 +98,12 @@ class GitAssets extends Assets<GitAssets.Config> {
     const res = await this.getBranch(forceNew, offset)
     const branchName = toBranchName(res.branch)
     if (!res.size) {
-      logger.debug(`Checking out to a new branch ${branchName}`)
+      this.logger.debug(`Checking out to a new branch ${branchName}`)
       await this.git.checkout(['--orphan', branchName])
       await this.git.raw(['rm', '-rf', '.'])
-      logger.debug(`Checked out to a new branch ${branchName}`)
+      this.logger.debug(`Checked out to a new branch ${branchName}`)
     } else {
-      logger.debug(`Checking out existing branch ${branchName}`)
+      this.logger.debug(`Checking out existing branch ${branchName}`)
       if (fetch) {
         await this.git.fetch('origin', branchName)
       }
@@ -113,7 +111,7 @@ class GitAssets extends Assets<GitAssets.Config> {
       if (fetch) {
         await this.git.reset(ResetMode.HARD, [`origin/${branchName}`])
       }
-      logger.debug(`Checked out existing branch ${branchName}`)
+      this.logger.debug(`Checked out existing branch ${branchName}`)
     }
     return res
   }
@@ -149,7 +147,7 @@ class GitAssets extends Assets<GitAssets.Config> {
       return sleep(this.config.flushInterval)
     }
 
-    logger.debug(`Processing files.`)
+    this.logger.debug(`Processing files.`)
     let branch = await this.checkout()
     let tasks = this.getTasks(this.config.maxBranchSize - branch.size)
     if (!tasks.length) {
@@ -158,26 +156,26 @@ class GitAssets extends Assets<GitAssets.Config> {
     }
     if (!tasks.length) return
 
-    logger.debug(`Will process ${tasks.length} files.`)
+    this.logger.debug(`Will process ${tasks.length} files.`)
     try {
-      logger.debug(`Moving files.`)
+      this.logger.debug(`Moving files.`)
       await Promise.all(tasks.map(async (task) => {
         task.branch = branch.branch
         await rename(task.tempPath, task.savePath)
       }))
-      logger.debug(`Committing files.`)
+      this.logger.debug(`Committing files.`)
       await this.git
         .add(tasks.map(task => task.filename))
         .commit('upload')
         .push('origin', toBranchName(branch.branch), ['-u', '-f'])
-      logger.debug(`Saving file entries to database.`)
+      this.logger.debug(`Saving file entries to database.`)
       await this.ctx.database.upsert('assets', tasks)
-      logger.debug(`Finished processing files.`)
+      this.logger.debug(`Finished processing files.`)
       for (const task of tasks) {
         task.resolve()
       }
     } catch (e) {
-      logger.warn(`Errored processing files: ${e.toString()}`)
+      this.logger.warn(`Errored processing files: ${e.toString()}`)
       await Promise.all(tasks.map(task => task.reject(e)))
     } finally {
       for (const file of tasks) {

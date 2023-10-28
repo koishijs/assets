@@ -1,4 +1,4 @@
-import { $, Context, Logger, Quester, Schema } from 'koishi'
+import { $, Context, Quester, Schema } from 'koishi'
 import Assets from '@koishijs/assets'
 import FormData from 'form-data'
 
@@ -9,11 +9,10 @@ declare module 'koishi' {
 }
 
 class CheveretoAssets extends Assets<CheveretoAssets.Config> {
-  static using = ['database'] as const
+  static inject = ['database'] as const
 
   types = ['image']
   http: Quester
-  logger: Logger
 
   constructor(ctx: Context, config: CheveretoAssets.Config) {
     super(ctx, config)
@@ -23,7 +22,6 @@ class CheveretoAssets extends Assets<CheveretoAssets.Config> {
         'X-API-Key': config.token,
       },
     })
-    this.logger = ctx.logger('chevereto')
     ctx.model.extend('assets', {
       id: 'integer',
       hash: 'string',

@@ -1,12 +1,10 @@
-import { Context, Logger, sanitize, Schema, trimSlash } from 'koishi'
+import { Context, sanitize, Schema, trimSlash } from 'koishi'
 import { createReadStream, Stats } from 'fs'
 import { cp, mkdir, readdir, rm, stat, writeFile } from 'fs/promises'
 import { basename, resolve } from 'path'
 import { createHmac } from 'crypto'
 import { stream as fileTypeStream } from 'file-type'
 import Assets from '@koishijs/assets'
-
-const logger = new Logger('assets')
 
 class LocalAssets extends Assets<LocalAssets.Config> {
   static inject = ['router']
@@ -30,8 +28,8 @@ class LocalAssets extends Assets<LocalAssets.Config> {
 
     if (config.selfUrl) {
       this.selfUrl = trimSlash(config.selfUrl)
-    } else if (!(this.selfUrl = ctx.root.config.selfUrl)) {
-      logger.info('missing config "selfUrl", fallback to "file:" scheme')
+    } else if (!(this.selfUrl = ctx.router.config.selfUrl)) {
+      this.logger.info('missing config "selfUrl", fallback to "file:" scheme')
       this.path = this.root.replace(/^\//, '')
       this.selfUrl = 'file:///'
       this.noServer = true
@@ -45,7 +43,7 @@ class LocalAssets extends Assets<LocalAssets.Config> {
     await mkdir(this.root, { recursive: true })
     const stats: Stats = await stat(legacy).catch(() => null)
     if (stats?.isDirectory()) {
-      logger.info('migrating to data directory')
+      this.logger.info('migrating to data directory')
       await cp(legacy, this.root)
       await rm(legacy, { recursive: true, force: true })
     }
