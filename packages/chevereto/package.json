@@ -23,7 +23,6 @@
     "url": "https://github.com/koishijs/assets/issues"
   },
   "homepage": "https://assets.koishi.chat/plugins/chevereto.html",
-  "scripts": {},
   "keywords": [
     "chatbot",
     "koishi",
@@ -45,10 +44,10 @@
     }
   },
   "peerDependencies": {
-    "koishi": "^4.15.3"
+    "koishi": "^4.15.4"
   },
   "devDependencies": {
-    "koishi": "^4.15.3"
+    "koishi": "^4.15.4"
   },
   "dependencies": {
     "@koishijs/assets": "^1.0.3",

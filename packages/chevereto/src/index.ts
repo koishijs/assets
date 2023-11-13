@@ -9,7 +9,7 @@ declare module 'koishi' {
 }
 
 class CheveretoAssets extends Assets<CheveretoAssets.Config> {
-  static inject = ['database'] as const
+  static inject = ['database']
 
   types = ['image']
   http: Quester

@@ -17,7 +17,7 @@ function toBranchName(id: number) {
 }
 
 class GitAssets extends Assets<GitAssets.Config> {
-  static inject = ['database'] as const
+  static inject = ['database']
 
   git: SimpleGit
   taskQueue: Task[] = []
