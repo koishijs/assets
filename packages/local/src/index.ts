@@ -3,6 +3,7 @@ import { createReadStream, Stats } from 'fs'
 import { cp, mkdir, readdir, rm, stat, writeFile } from 'fs/promises'
 import { basename, resolve } from 'path'
 import { createHmac } from 'crypto'
+import { pathToFileURL } from 'url'
 import { stream as fileTypeStream } from 'file-type'
 import Assets from '@koishijs/assets'
 
@@ -17,25 +18,24 @@ class LocalAssets extends Assets<LocalAssets.Config> {
 
   private path: string
   private root: string
-  private selfUrl: string
+  private baseUrl: string
   private noServer = false
 
   constructor(ctx: Context, config: LocalAssets.Config) {
     super(ctx, config)
 
-    this.path = sanitize(config.path || '/files')
     this.root = resolve(ctx.baseDir, config.root)
 
-    if (config.selfUrl) {
-      this.selfUrl = trimSlash(config.selfUrl)
-    } else if (!(this.selfUrl = ctx.router.config.selfUrl)) {
+    const selfUrl = config.selfUrl || ctx.router.config.selfUrl
+    if (selfUrl) {
+      this.path = sanitize(config.path || '/files')
+      this.baseUrl = trimSlash(selfUrl) + this.path
+      this.initServer()
+    } else {
       this.logger.info('missing config "selfUrl", fallback to "file:" scheme')
-      this.path = this.root.replace(/^\//, '')
-      this.selfUrl = 'file:///'
+      this.baseUrl = 'file:'
       this.noServer = true
     }
-
-    if (!this.noServer) this.initServer()
   }
 
   async _start() {
@@ -94,13 +94,17 @@ class LocalAssets extends Assets<LocalAssets.Config> {
   }
 
   async upload(url: string, file: string) {
-    if (url.startsWith(this.selfUrl)) return url
+    if (url.startsWith(this.baseUrl)) return url
     await this._task
-    const { selfUrl, path, root } = this
+    const { baseUrl, root, noServer } = this
     const { buffer, filename } = await this.analyze(url, file)
     const savePath = resolve(root, filename)
     await this.write(buffer, savePath)
-    return `${selfUrl}${path}/${filename}`
+    if (noServer) {
+      return pathToFileURL(savePath).href
+    } else {
+      return `${baseUrl}/${filename}`
+    }
   }
 
   async stats() {
