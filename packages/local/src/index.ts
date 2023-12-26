@@ -1,4 +1,5 @@
 import { Context, sanitize, Schema, trimSlash } from 'koishi'
+import {} from '@koishijs/plugin-server'
 import { createReadStream, Stats } from 'fs'
 import { cp, mkdir, readdir, rm, stat, writeFile } from 'fs/promises'
 import { basename, resolve } from 'path'
@@ -8,7 +9,7 @@ import { stream as fileTypeStream } from 'file-type'
 import Assets from '@koishijs/assets'
 
 class LocalAssets extends Assets<LocalAssets.Config> {
-  static inject = ['router']
+  static inject = ['server']
 
   private _task: Promise<void>
   private _stats: Assets.Stats = {
@@ -26,7 +27,7 @@ class LocalAssets extends Assets<LocalAssets.Config> {
 
     this.root = resolve(ctx.baseDir, config.root)
 
-    const selfUrl = config.selfUrl || ctx.router.config.selfUrl
+    const selfUrl = config.selfUrl || ctx.server.config.selfUrl
     if (selfUrl) {
       this.path = sanitize(config.path || '/files')
       this.baseUrl = trimSlash(selfUrl) + this.path
@@ -60,18 +61,18 @@ class LocalAssets extends Assets<LocalAssets.Config> {
   }
 
   async initServer() {
-    this.ctx.router.get(this.path, async (ctx) => {
+    this.ctx.server.get(this.path, async (ctx) => {
       return ctx.body = await this.stats()
     })
 
-    this.ctx.router.get(this.path + '/:name', async (ctx) => {
+    this.ctx.server.get(this.path + '/:name', async (ctx) => {
       const filename = resolve(this.root, basename(ctx.params.name))
       const stream = await fileTypeStream(createReadStream(filename))
       ctx.type = stream.fileType?.mime
       return ctx.body = stream
     })
 
-    this.ctx.router.post(this.path, async (ctx) => {
+    this.ctx.server.post(this.path, async (ctx) => {
       const { salt, sign, url, file } = ctx.query
       if (Array.isArray(file) || Array.isArray(url)) {
         return ctx.status = 400
