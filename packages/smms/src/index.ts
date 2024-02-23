@@ -1,6 +1,5 @@
 import { Context, Quester, Schema } from 'koishi'
 import Assets from '@koishijs/assets'
-import FormData from 'form-data'
 
 class SmmsAssets extends Assets<SmmsAssets.Config> {
   types = ['image']
@@ -15,10 +14,10 @@ class SmmsAssets extends Assets<SmmsAssets.Config> {
   }
 
   async upload(url: string, file: string) {
-    const { buffer, filename } = await this.analyze(url, file)
+    const { buffer, filename, type } = await this.analyze(url, file)
     const payload = new FormData()
-    payload.append('smfile', buffer, filename)
-    const data = await this.http.post('/upload', payload, { headers: payload.getHeaders() })
+    payload.append('smfile', new Blob([buffer], { type }), filename)
+    const data = await this.http.post('/upload', payload)
     if (data.code === 'image_repeated') {
       return data.images
     }

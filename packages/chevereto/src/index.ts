@@ -1,6 +1,5 @@
 import { $, Context, Quester, Schema } from 'koishi'
 import Assets from '@koishijs/assets'
-import FormData from 'form-data'
 
 declare module 'koishi' {
   interface Tables {
@@ -9,7 +8,7 @@ declare module 'koishi' {
 }
 
 class CheveretoAssets extends Assets<CheveretoAssets.Config> {
-  static inject = ['database']
+  static inject = ['database', 'http']
 
   types = ['image']
   http: Quester
@@ -34,14 +33,14 @@ class CheveretoAssets extends Assets<CheveretoAssets.Config> {
   }
 
   async upload(url: string, file: string) {
-    const { buffer, filename, hash } = await this.analyze(url, file)
+    const { buffer, filename, hash, type } = await this.analyze(url, file)
     const [dbFile] = await this.ctx.database.get('assets', { hash })
     if (dbFile) return dbFile.url
     const payload = new FormData()
-    payload.append('source', buffer, filename)
+    payload.append('source', new Blob([buffer], { type }), filename)
     payload.append('key', this.config.token)
     payload.append('title', file)
-    const data = await this.http.post('/api/1/upload', payload, { headers: payload.getHeaders() })
+    const data = await this.http.post('/api/1/upload', payload)
     await this.ctx.database.create('assets', {
       hash,
       name: filename,

@@ -9,16 +9,19 @@ declare module 'koishi' {
   }
 }
 
-abstract class Assets<C extends Assets.Config = Assets.Config> extends Service {
+abstract class Assets<T extends Assets.Config = Assets.Config> extends Service {
+  static [Service.provide] = 'assets'
+
   static filter = false
   static types = ['image', 'audio', 'video']
+  static inject = ['http']
 
   protected types: readonly string[] = Assets.types
 
   abstract upload(url: string, file: string): Promise<string>
   abstract stats(): Promise<Assets.Stats>
 
-  constructor(protected ctx: Context, public config: C) {
+  constructor(protected ctx: Context, public config: T) {
     super(ctx, 'assets')
   }
 
@@ -49,7 +52,7 @@ abstract class Assets<C extends Assets.Config = Assets.Config> extends Service {
         name = `.${fileType.ext}`
       }
     }
-    return { buffer, hash, name, filename: `${hash}${name}` }
+    return { buffer, hash, name, filename: `${hash}${name}`, type: file.mime }
   }
 }
 
@@ -64,6 +67,7 @@ namespace Assets {
     hash: string
     name: string
     filename: string
+    type?: string
   }
 
   export interface Config {
