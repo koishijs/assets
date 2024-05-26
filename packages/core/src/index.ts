@@ -13,7 +13,7 @@ abstract class Assets<T extends Assets.Config = Assets.Config> extends Service {
   static [Service.provide] = 'assets'
 
   static filter = false
-  static types = ['image', 'audio', 'video']
+  static types = ['img', 'audio', 'video']
   static inject = ['http']
 
   protected types: readonly string[] = Assets.types
@@ -52,7 +52,7 @@ abstract class Assets<T extends Assets.Config = Assets.Config> extends Service {
         name = `.${fileType.ext}`
       }
     }
-    return { buffer, hash, name, filename: `${hash}${name}`, type: file.mime }
+    return { buffer, hash, name, filename: `${hash}${name}`, type: file.type }
   }
 }
 

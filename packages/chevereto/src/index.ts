@@ -1,4 +1,4 @@
-import { $, Context, Quester, Schema } from 'koishi'
+import { $, Context, HTTP, Schema } from 'koishi'
 import Assets from '@koishijs/assets'
 
 declare module 'koishi' {
@@ -11,7 +11,7 @@ class CheveretoAssets extends Assets<CheveretoAssets.Config> {
   static inject = ['database', 'http']
 
   types = ['image']
-  http: Quester
+  http: HTTP
 
   constructor(ctx: Context, config: CheveretoAssets.Config) {
     super(ctx, config)

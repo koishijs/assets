@@ -1,9 +1,9 @@
-import { Context, Quester, Random, Schema } from 'koishi'
+import { Context, HTTP, Random, Schema } from 'koishi'
 import { createHmac } from 'crypto'
 import Assets from '@koishijs/assets'
 
 class RemoteAssets extends Assets<RemoteAssets.Config> {
-  http: Quester
+  http: HTTP
 
   constructor(ctx: Context, config: RemoteAssets.Config) {
     super(ctx, config)

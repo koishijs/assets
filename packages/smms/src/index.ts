@@ -1,9 +1,9 @@
-import { Context, Quester, Schema } from 'koishi'
+import { Context, HTTP, Schema } from 'koishi'
 import Assets from '@koishijs/assets'
 
 class SmmsAssets extends Assets<SmmsAssets.Config> {
   types = ['image']
-  http: Quester
+  http: HTTP
 
   constructor(ctx: Context, config: SmmsAssets.Config) {
     super(ctx, config)
