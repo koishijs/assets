@@ -1,7 +1,7 @@
 {
   "name": "koishi-plugin-assets-git",
   "description": "A git assets provider for Koishi",
-  "version": "1.1.5",
+  "version": "1.2.1",
   "main": "lib/index.js",
   "typings": "lib/index.d.ts",
   "files": [
@@ -46,13 +46,13 @@
     }
   },
   "peerDependencies": {
-    "koishi": "^4.17.1"
+    "koishi": "^4.17.7"
   },
   "devDependencies": {
-    "koishi": "^4.17.1"
+    "koishi": "^4.17.7"
   },
   "dependencies": {
-    "@koishijs/assets": "^1.0.4",
-    "simple-git": "^3.21.0"
+    "@koishijs/assets": "^1.1.1",
+    "simple-git": "^3.23.0"
   }
 }
