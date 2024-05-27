@@ -28,10 +28,10 @@ abstract class Assets<T extends Assets.Config = Assets.Config> extends Service {
   public async transform(content: string) {
     return await h.transformAsync(content, Object.fromEntries(this.types.map((type) => {
       return [type, async (data) => {
-        if (this.config.whitelist.some(prefix => data.url.startsWith(prefix))) {
+        if (this.config.whitelist.some(prefix => data.src.startsWith(prefix))) {
           return h(type, data)
         } else {
-          return h(type, { url: await this.upload(data.url, data.file) })
+          return h(type, { src: await this.upload(data.src, data.file) })
         }
       }]
     })))
