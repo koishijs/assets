@@ -1,6 +1,7 @@
 import { Context, h, Schema, Service } from 'koishi'
 import { createHash } from 'crypto'
 import { basename } from 'path'
+import {} from '@koishijs/plugin-http'
 import FileType from 'file-type'
 
 declare module 'koishi' {
@@ -10,8 +11,6 @@ declare module 'koishi' {
 }
 
 abstract class Assets<T extends Assets.Config = Assets.Config> extends Service {
-  static [Service.provide] = 'assets'
-
   static filter = false
   static types = ['img', 'audio', 'video']
   static inject = ['http']

@@ -1,7 +1,7 @@
 {
   "name": "koishi-plugin-assets-smms",
   "description": "Serve assets on [SM.MS](https://smms.app)",
-  "version": "1.2.1",
+  "version": "1.2.2",
   "main": "lib/index.js",
   "typings": "lib/index.d.ts",
   "files": [
@@ -46,6 +46,6 @@
     "koishi": "^4.17.7"
   },
   "dependencies": {
-    "@koishijs/assets": "^1.1.1"
+    "@koishijs/assets": "^1.1.2"
   }
 }
